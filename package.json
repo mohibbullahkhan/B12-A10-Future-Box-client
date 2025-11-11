@@ -12,16 +12,24 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
+    "dayjs": "^1.11.19",
     "dotenv": "^17.2.3",
+    "file-saver": "^2.0.5",
     "firebase": "^12.5.0",
+    "html2canvas": "^1.0.0-rc.7",
+    "jspdf": "^3.0.3",
+    "jspdf-autotable": "^5.0.2",
+    "papaparse": "^5.5.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-router": "^7.9.5",
     "react-toastify": "^11.0.5",
     "sweetalert2": "^11.26.3",
     "swiper": "^12.0.3",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "tailwindcss-hocus": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
