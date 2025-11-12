@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://utility-bill-management-server.vercel.app",
 });
 
 const useAxiosSecure = () => {
@@ -23,10 +23,27 @@ const useAxiosSecure = () => {
       return config;
     });
 
+    //response interceptor
+    const responseInterceptor = instance.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+      (err) => {
+        const status = err.status;
+        if (status === 401 || status === 403) {
+          logOut().then(() => {
+            //navigate user to the login page
+            navigate("/register");
+          });
+        }
+      }
+    );
+
     return () => {
       instance.interceptors.request.eject(requestInterceptor);
+      instance.interceptors.response.eject(responseInterceptor);
     };
-  }, [user]);
+  }, [user, navigate, logOut]);
 
   // ... (Your fix from before)
   return instance;

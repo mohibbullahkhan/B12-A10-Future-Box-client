@@ -2,7 +2,7 @@ import React, { use, useRef, useState } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../Provider/AuthContext";
 

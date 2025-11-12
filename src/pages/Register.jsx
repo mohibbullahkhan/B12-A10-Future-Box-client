@@ -2,9 +2,10 @@ import React, { use, useState } from "react";
 
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { AuthContext } from "../Provider/AuthContext";
-import { FaEye } from "react-icons/fa";
+// import { AuthContext } from "../Provider/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from "../Provider/AuthContext";
 
 const Register = () => {
   const { setUser, createUser, updateUser, signInGoogle } = use(AuthContext);
