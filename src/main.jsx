@@ -13,10 +13,12 @@ import MyPayBills from "./pages/MyPayBills.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import BilDetails from "./components/BilDetails.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import NotFound from "./pages/NotFound.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+
     children: [
       {
         index: true,
@@ -51,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+      {
+        path: "*",
+        Component: NotFound,
       },
     ],
   },
