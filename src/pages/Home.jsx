@@ -32,9 +32,8 @@ const Home = () => {
           </p>
         </div>
         <div className="grid gap-6 max-w-7xl max-sm:mx-2 mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {bil.map((card) => (
-            <BilCard key={card._id} card={card}></BilCard>
-          ))}
+          {Array.isArray(bil) &&
+            bil.map((card) => <BilCard key={card._id} card={card}></BilCard>)}
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../Provider/AuthContext";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
@@ -9,13 +9,15 @@ import dayjs from "dayjs";
 import { TbSum } from "react-icons/tb";
 import autoTable from "jspdf-autotable";
 import jsPDF from "jspdf";
+import { toast } from "react-toastify";
 
 const MyPayBills = () => {
   const { user } = useContext(AuthContext);
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
-
+  const bilModalRef = useRef(null);
+  const [currentBillToEdit, setCurrentBillToEdit] = useState(null);
   // --- Data Fetching ---
   const fetchBills = async () => {
     if (!user?.email) return;
@@ -148,6 +150,123 @@ const MyPayBills = () => {
     });
   };
 
+  const handleUpdateBill = (bill) => {
+    setCurrentBillToEdit(bill); // Set the specific bill data
+    bilModalRef.current.showModal();
+  };
+  // ... after handleBillSubmit
+  const handleBillUpdateSubmit = (e) => {
+    e.preventDefault();
+
+    const id = currentBillToEdit._id; // Get the ID from the state
+
+    const updatedBillData = {
+      username: e.target.username.value,
+      email: e.target.email.value,
+      phone: e.target.phone.value,
+      address: e.target.address.value,
+      amount: parseFloat(e.target.amount.value),
+      datePaid: e.target.date.value, // Changed from 'date' to 'datePaid' to match the PUT logic's $set
+      additionalInfo: e.target.additionalInfo.value,
+      // Note: billId and status are typically not changed in a simple update
+    };
+
+    axiosSecure
+      .put(`/myBills/${id}`, updatedBillData) // Use PUT method
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Bill successfully updated!");
+          bilModalRef.current.close();
+          fetchBills(); // Re-fetch the data to update the table
+        } else {
+          toast.error("Failed to update bill.");
+        }
+      })
+      .catch((error) => {
+        toast.error("An error occurred during bill update.");
+        console.error("Error updating bill:", error);
+      });
+  };
+
+  const handleBillSubmit = (e) => {
+    e.preventDefault();
+
+    const username = e.target.username.value;
+    const email = e.target.email.value;
+    const phone = e.target.phone.value;
+    const address = e.target.address.value;
+    const amount = parseFloat(e.target.amount.value);
+    const date = e.target.date.value;
+    const additionalInfo = e.target.additionalInfo.value;
+
+    const newBillData = {
+      billId: "PLACEHOLDER_NEW_BILL_ID",
+      username: username,
+      phone: phone,
+      address: address,
+      email: email,
+      amount: amount,
+      datePaid: date,
+      additionalInfo: additionalInfo,
+      status: "Paid",
+    };
+
+    axiosSecure
+      .post("/myBills", newBillData)
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Bill successfully paid and recorded!");
+          bilModalRef.current.close();
+          fetchBills(); // Re-fetch the data to include the new paid bill
+        } else {
+          toast.error("Failed to record payment.");
+        }
+      })
+      .catch((error) => {
+        toast.error("An error occurred during payment submission.");
+        console.error("Error creating new bill:", error);
+      });
+  };
+
+  // const handleBillSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const username = e.target.username.value;
+  //   const email = e.target.email.value;
+  //   const phone = e.target.phone.value;
+  //   const address = e.target.address.value;
+  //   const amount = parseFloat(e.target.amount.value);
+  //   const date = e.target.date.value;
+  //   const additionalInfo = e.target.additionalInfo.value;
+
+  //   const newBillData = {
+  //     billId: bills._id,
+  //     username: username,
+  //     phone: phone,
+  //     address: address,
+  //     email: email,
+  //     amount: amount,
+  //     datePaid: date,
+  //     additionalInfo: additionalInfo,
+  //     status: "Paid",
+  //   };
+
+  //   axiosSecure
+  //     .post("/myBills", newBillData)
+  //     .then((res) => {
+  //       if (res.data.insertedId) {
+  //         toast.success("Bill successfully paid and recorded!");
+  //         bilModalRef.current.close();
+  //       } else {
+  //         toast.error("Failed to record payment.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       toast.error("An error occurred during payment submission.");
+  //       console.error("Error creating new bill:", error);
+  //     });
+  // };
+
   // --- Loading State ---
   if (loading) {
     return (
@@ -256,7 +375,7 @@ const MyPayBills = () => {
                     {/* Update Button (Placeholder - Required but logic is complex for simple table) */}
                     <button
                       className="btn btn-sm btn-ghost text-blue-500 hover:text-blue-700"
-                      disabled
+                      onClick={() => handleUpdateBill(bill)}
                     >
                       Update
                     </button>
@@ -275,6 +394,174 @@ const MyPayBills = () => {
           </table>
         </div>
       )}
+
+      <dialog
+        ref={bilModalRef}
+        onClose={() => setCurrentBillToEdit(null)}
+        className="modal modal-bottom sm:modal-middle"
+      >
+        {currentBillToEdit && (
+          <div className="modal-box">
+            <h3 className="font-bold text-2xl text-center text-blue-600">
+              {currentBillToEdit
+                ? "Update Bill Details"
+                : "Submit Payment Details"}
+            </h3>
+            <p className="py-4 text-center">
+              {currentBillToEdit
+                ? "Modify the necessary details for this payment record."
+                : "Confirm your personal details to proceed with the bill payment."}
+            </p>
+
+            {/* Conditional Form Submission Handler */}
+            <form
+              onSubmit={
+                currentBillToEdit ? handleBillUpdateSubmit : handleBillSubmit
+              }
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Bill ID (Read-only) - Use currentBillToEdit's _id or billId */}
+                <div>
+                  <label className="label">Bill ID</label>
+                  <input
+                    type="text"
+                    name="billId"
+                    className="input input-bordered w-full"
+                    readOnly
+                    defaultValue={currentBillToEdit?._id || bills._id}
+                  />
+                </div>
+
+                {/* Amount (Editable) */}
+                <div>
+                  <label className="label">Amount</label>
+                  <input
+                    type="number" // Changed to number for amount
+                    name="amount"
+                    className="input input-bordered w-full font-bold text-lg"
+                    // Set default value dynamically
+                    defaultValue={currentBillToEdit?.amount || bills.amount}
+                    required
+                  />
+                </div>
+
+                {/* Username (Read-only for consistency) */}
+                <div>
+                  <label className="label">Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    className="input input-bordered w-full"
+                    readOnly
+                    defaultValue={
+                      currentBillToEdit?.username || user?.displayName || "N/A"
+                    }
+                  />
+                </div>
+
+                {/* Email (Read-only for consistency) */}
+                <div>
+                  <label className="label">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="input input-bordered w-full"
+                    readOnly
+                    defaultValue={
+                      currentBillToEdit?.email || user?.email || "N/A"
+                    }
+                  />
+                </div>
+
+                {/* Phone (Editable) */}
+                <div>
+                  <label className="label">
+                    Phone <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    className="input input-bordered w-full"
+                    placeholder="e.g., 017XXXXXXXX"
+                    required
+                    // Set default value dynamically
+                    defaultValue={currentBillToEdit?.phone || ""}
+                  />
+                </div>
+
+                {/* Address (Editable) */}
+                <div>
+                  <label className="label">
+                    Address <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    className="input input-bordered w-full"
+                    placeholder="e.g., House #123, Dhaka"
+                    required
+                    // Set default value dynamically
+                    defaultValue={currentBillToEdit?.address || ""}
+                  />
+                </div>
+
+                {/* Date (Editable) */}
+                <div className="col-span-1">
+                  <label className="label">Payment Date</label>
+                  <input
+                    type="date"
+                    name="date"
+                    className="input input-bordered w-full"
+                    required
+                    // Set default value dynamically, must be formatted to "YYYY-MM-DD" for type="date"
+                    defaultValue={
+                      currentBillToEdit?.datePaid
+                        ? dayjs(currentBillToEdit.datePaid).format("YYYY-MM-DD")
+                        : dayjs().format("YYYY-MM-DD")
+                    }
+                  />
+                </div>
+
+                {/* Additional info (Editable) */}
+                <div className="col-span-full">
+                  <label className="label">Additional Info (Optional)</label>
+                  <textarea
+                    name="additionalInfo"
+                    className="textarea textarea-bordered w-full"
+                    placeholder="Any specific instructions or notes"
+                    // Set default value dynamically
+                    defaultValue={currentBillToEdit?.additionalInfo || ""}
+                  ></textarea>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="mt-6">
+                <button
+                  type="submit"
+                  className={`btn w-full text-white ${
+                    currentBillToEdit ? "btn-info" : "btn-success"
+                  }`}
+                >
+                  {currentBillToEdit ? "Save Changes" : "Confirm & Pay"}
+                </button>
+              </div>
+            </form>
+
+            <div className="modal-action mt-4">
+              <form method="dialog">
+                {/* Reset currentBillToEdit when closing */}
+                <button
+                  // onClick={() => setCurrentBillToEdit(null)}
+                  className="btn btn-sm btn-ghost"
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+      </dialog>
     </div>
   );
 };
