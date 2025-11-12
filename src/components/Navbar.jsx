@@ -82,6 +82,11 @@ const Navbar = () => {
           My Profile
         </NavLink>
       </li>
+      <li>
+        <NavLink className={getNavLinkClass} to="/faq">
+          FAQ
+        </NavLink>
+      </li>
     </>
   );
 

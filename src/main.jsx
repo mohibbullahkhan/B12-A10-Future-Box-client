@@ -15,6 +15,7 @@ import BilDetails from "./components/BilDetails.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import NotFound from "./pages/NotFound.jsx";
 import MyProfile from "./pages/MyProfile.jsx";
+import FaqPage from "./pages/FaqPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/myprofile",
         Component: MyProfile,
+      },
+      {
+        path: "/faq",
+        Component: FaqPage,
       },
     ],
   },
