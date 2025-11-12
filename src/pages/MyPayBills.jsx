@@ -151,14 +151,14 @@ const MyPayBills = () => {
   };
 
   const handleUpdateBill = (bill) => {
-    setCurrentBillToEdit(bill); // Set the specific bill data
+    setCurrentBillToEdit(bill);
     bilModalRef.current.showModal();
   };
   // ... after handleBillSubmit
   const handleBillUpdateSubmit = (e) => {
     e.preventDefault();
 
-    const id = currentBillToEdit._id; // Get the ID from the state
+    const id = currentBillToEdit._id;
 
     const updatedBillData = {
       username: e.target.username.value,
@@ -166,18 +166,17 @@ const MyPayBills = () => {
       phone: e.target.phone.value,
       address: e.target.address.value,
       amount: parseFloat(e.target.amount.value),
-      datePaid: e.target.date.value, // Changed from 'date' to 'datePaid' to match the PUT logic's $set
+      datePaid: e.target.date.value,
       additionalInfo: e.target.additionalInfo.value,
-      // Note: billId and status are typically not changed in a simple update
     };
 
     axiosSecure
-      .put(`/myBills/${id}`, updatedBillData) // Use PUT method
+      .put(`/myBills/${id}`, updatedBillData)
       .then((res) => {
         if (res.data.success) {
           toast.success("Bill successfully updated!");
           bilModalRef.current.close();
-          fetchBills(); // Re-fetch the data to update the table
+          fetchBills();
         } else {
           toast.error("Failed to update bill.");
         }
@@ -217,7 +216,7 @@ const MyPayBills = () => {
         if (res.data.insertedId) {
           toast.success("Bill successfully paid and recorded!");
           bilModalRef.current.close();
-          fetchBills(); // Re-fetch the data to include the new paid bill
+          fetchBills();
         } else {
           toast.error("Failed to record payment.");
         }
@@ -227,45 +226,6 @@ const MyPayBills = () => {
         console.error("Error creating new bill:", error);
       });
   };
-
-  // const handleBillSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const username = e.target.username.value;
-  //   const email = e.target.email.value;
-  //   const phone = e.target.phone.value;
-  //   const address = e.target.address.value;
-  //   const amount = parseFloat(e.target.amount.value);
-  //   const date = e.target.date.value;
-  //   const additionalInfo = e.target.additionalInfo.value;
-
-  //   const newBillData = {
-  //     billId: bills._id,
-  //     username: username,
-  //     phone: phone,
-  //     address: address,
-  //     email: email,
-  //     amount: amount,
-  //     datePaid: date,
-  //     additionalInfo: additionalInfo,
-  //     status: "Paid",
-  //   };
-
-  //   axiosSecure
-  //     .post("/myBills", newBillData)
-  //     .then((res) => {
-  //       if (res.data.insertedId) {
-  //         toast.success("Bill successfully paid and recorded!");
-  //         bilModalRef.current.close();
-  //       } else {
-  //         toast.error("Failed to record payment.");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       toast.error("An error occurred during payment submission.");
-  //       console.error("Error creating new bill:", error);
-  //     });
-  // };
 
   // --- Loading State ---
   if (loading) {
@@ -292,14 +252,13 @@ const MyPayBills = () => {
         </button>
       </div>
 
-      {/* Total Paid / Total Amount Cards (Matching Screenshot Design) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className="bg-blue-600 text-white p-6 rounded-xl shadow-lg flex justify-between items-center">
           <div>
             <p className="text-sm opacity-80">Total Bills Paid</p>
             <h2 className="text-4xl font-bold mt-1">{totalBillsPaid}</h2>
           </div>
-          {/* Placeholder icon */}
+
           <FcPaid size={40} />
         </div>
 
@@ -310,14 +269,12 @@ const MyPayBills = () => {
               ৳{totalAmount.toFixed(2)}
             </h2>
           </div>
-          {/* Placeholder icon */}
+
           <TbSum size={40} />
         </div>
       </div>
 
-      {/* Conditional Display: No Payments vs. Table */}
       {totalBillsPaid === 0 ? (
-        // No Payments Yet - Matching Screenshot Design
         <div className="bg-white p-16 text-center rounded-lg shadow-xl mt-8">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -339,7 +296,6 @@ const MyPayBills = () => {
         // Payments Table
         <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-xl mt-8">
           <table className="table table-zebra w-full">
-            {/* Table Head */}
             <thead>
               <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                 <th className="py-3 px-6 text-left">Bill ID</th>
@@ -350,7 +306,7 @@ const MyPayBills = () => {
                 <th className="py-3 px-6 text-center">Actions</th>
               </tr>
             </thead>
-            {/* Table Body */}
+
             <tbody className="text-gray-600 text-sm font-light">
               {bills.map((bill) => (
                 <tr
@@ -372,7 +328,6 @@ const MyPayBills = () => {
                     {dayjs(bill.datePaid).format("MMM D, YYYY")}
                   </td>
                   <td className="py-3 px-6 text-center space-x-2">
-                    {/* Update Button (Placeholder - Required but logic is complex for simple table) */}
                     <button
                       className="btn btn-sm btn-ghost text-blue-500 hover:text-blue-700"
                       onClick={() => handleUpdateBill(bill)}
@@ -380,7 +335,6 @@ const MyPayBills = () => {
                       Update
                     </button>
 
-                    {/* Delete Button */}
                     <button
                       onClick={() => handleDeleteBill(bill._id)}
                       className="btn btn-sm btn-ghost text-red-500 hover:text-red-700"
@@ -413,14 +367,12 @@ const MyPayBills = () => {
                 : "Confirm your personal details to proceed with the bill payment."}
             </p>
 
-            {/* Conditional Form Submission Handler */}
             <form
               onSubmit={
                 currentBillToEdit ? handleBillUpdateSubmit : handleBillSubmit
               }
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Bill ID (Read-only) - Use currentBillToEdit's _id or billId */}
                 <div>
                   <label className="label">Bill ID</label>
                   <input
@@ -432,20 +384,17 @@ const MyPayBills = () => {
                   />
                 </div>
 
-                {/* Amount (Editable) */}
                 <div>
                   <label className="label">Amount</label>
                   <input
-                    type="number" // Changed to number for amount
+                    type="number"
                     name="amount"
                     className="input input-bordered w-full font-bold text-lg"
-                    // Set default value dynamically
                     defaultValue={currentBillToEdit?.amount || bills.amount}
                     required
                   />
                 </div>
 
-                {/* Username (Read-only for consistency) */}
                 <div>
                   <label className="label">Username</label>
                   <input
@@ -459,7 +408,6 @@ const MyPayBills = () => {
                   />
                 </div>
 
-                {/* Email (Read-only for consistency) */}
                 <div>
                   <label className="label">Email</label>
                   <input
@@ -473,7 +421,6 @@ const MyPayBills = () => {
                   />
                 </div>
 
-                {/* Phone (Editable) */}
                 <div>
                   <label className="label">
                     Phone <span className="text-red-500">*</span>
@@ -484,12 +431,10 @@ const MyPayBills = () => {
                     className="input input-bordered w-full"
                     placeholder="e.g., 017XXXXXXXX"
                     required
-                    // Set default value dynamically
                     defaultValue={currentBillToEdit?.phone || ""}
                   />
                 </div>
 
-                {/* Address (Editable) */}
                 <div>
                   <label className="label">
                     Address <span className="text-red-500">*</span>
@@ -500,12 +445,10 @@ const MyPayBills = () => {
                     className="input input-bordered w-full"
                     placeholder="e.g., House #123, Dhaka"
                     required
-                    // Set default value dynamically
                     defaultValue={currentBillToEdit?.address || ""}
                   />
                 </div>
 
-                {/* Date (Editable) */}
                 <div className="col-span-1">
                   <label className="label">Payment Date</label>
                   <input
@@ -513,7 +456,6 @@ const MyPayBills = () => {
                     name="date"
                     className="input input-bordered w-full"
                     required
-                    // Set default value dynamically, must be formatted to "YYYY-MM-DD" for type="date"
                     defaultValue={
                       currentBillToEdit?.datePaid
                         ? dayjs(currentBillToEdit.datePaid).format("YYYY-MM-DD")
@@ -522,20 +464,17 @@ const MyPayBills = () => {
                   />
                 </div>
 
-                {/* Additional info (Editable) */}
                 <div className="col-span-full">
                   <label className="label">Additional Info (Optional)</label>
                   <textarea
                     name="additionalInfo"
                     className="textarea textarea-bordered w-full"
                     placeholder="Any specific instructions or notes"
-                    // Set default value dynamically
                     defaultValue={currentBillToEdit?.additionalInfo || ""}
                   ></textarea>
                 </div>
               </div>
 
-              {/* Submit Button */}
               <div className="mt-6">
                 <button
                   type="submit"
@@ -550,13 +489,7 @@ const MyPayBills = () => {
 
             <div className="modal-action mt-4">
               <form method="dialog">
-                {/* Reset currentBillToEdit when closing */}
-                <button
-                  // onClick={() => setCurrentBillToEdit(null)}
-                  className="btn btn-sm btn-ghost"
-                >
-                  Cancel
-                </button>
+                <button className="btn btn-sm btn-ghost">Cancel</button>
               </form>
             </div>
           </div>
