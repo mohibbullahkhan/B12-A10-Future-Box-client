@@ -16,7 +16,7 @@ import { AuthContext } from "./AuthContext";
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope("email");
+//googleProvider.addScope("email");
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);

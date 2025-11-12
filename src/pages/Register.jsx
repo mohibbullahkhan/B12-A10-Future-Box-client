@@ -73,7 +73,7 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="flex flex-col lg:flex-row max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <div className="p-8 lg:p-12 lg:w-1/2 bg-teal-600 flex flex-col justify-center items-center text-center">
+        <div className="p-8 lg:p-12 lg:w-1/2 bg-primary flex flex-col justify-center items-center text-center">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
             Join Our Cozy Crew!
           </h1>
@@ -155,7 +155,7 @@ const Register = () => {
 
             <button
               type="submit"
-              className="w-full py-2.5 text-lg font-bold bg-teal-600 text-white rounded-lg shadow-md hover:bg-teal-700 transition duration-300 transform hover:scale-[1.005] cursor-pointer"
+              className="w-full py-2.5 text-lg font-bold bg-primary text-white rounded-lg shadow-md hover:bg-teal-700 transition duration-300 transform hover:scale-[1.005] cursor-pointer"
             >
               Register Account
             </button>
@@ -177,7 +177,7 @@ const Register = () => {
           <p className="font-medium text-center pt-5 text-gray-600">
             Already Have An Account?{" "}
             <Link
-              className="text-teal-600 hover:underline font-semibold"
+              className="text-primary hover:underline font-semibold"
               to="/login"
             >
               Login Here

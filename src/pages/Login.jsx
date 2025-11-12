@@ -62,7 +62,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="flex flex-col lg:flex-row-reverse max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <div className="p-8 lg:p-12 lg:w-1/2 bg-teal-600 flex flex-col justify-center items-center text-center">
+        <div className="p-8 lg:p-12 lg:w-1/2 bg-primary flex flex-col justify-center items-center text-center">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
             Welcome Back!
           </h1>
@@ -120,7 +120,7 @@ const Login = () => {
               <button
                 type="button"
                 onClick={handleForgetPassword}
-                className="cursor-pointer text-sm font-medium text-teal-600 hover:text-teal-700 hover:underline transition duration-150"
+                className="cursor-pointer text-sm font-medium text-primary hover:text-teal-700 hover:underline transition duration-150"
               >
                 Forgot password?
               </button>
@@ -128,7 +128,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="cursor-pointer w-full py-2.5 text-lg font-bold bg-teal-600 text-white rounded-lg shadow-md hover:bg-teal-700 transition duration-300 transform hover:scale-[1.005]"
+              className="cursor-pointer w-full py-2.5 text-lg font-bold bg-primary text-white rounded-lg shadow-md hover:bg-teal-700 transition duration-300 transform hover:scale-[1.005]"
             >
               Login
             </button>
@@ -141,7 +141,7 @@ const Login = () => {
             <p className="font-medium text-center pt-5 text-gray-600">
               Don't Have An Account?{" "}
               <Link
-                className="text-teal-600 hover:underline font-semibold"
+                className="text-primary hover:underline font-semibold"
                 to="/register"
               >
                 Register Here
