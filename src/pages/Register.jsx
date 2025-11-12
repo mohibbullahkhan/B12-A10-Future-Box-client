@@ -61,6 +61,7 @@ const Register = () => {
     signInGoogle()
       .then((result) => {
         const user = result.user;
+        console.log(user);
         setUser(user);
         navigate(location.state ? location.state : "/");
         toast.success("Signed in with Google!");
