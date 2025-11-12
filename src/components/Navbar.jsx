@@ -77,6 +77,11 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+      <li>
+        <NavLink className={getNavLinkClass} to="/myprofile">
+          My Profile
+        </NavLink>
+      </li>
     </>
   );
 

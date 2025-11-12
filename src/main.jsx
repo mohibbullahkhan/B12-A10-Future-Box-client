@@ -14,6 +14,7 @@ import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import BilDetails from "./components/BilDetails.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import NotFound from "./pages/NotFound.jsx";
+import MyProfile from "./pages/MyProfile.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,7 +36,6 @@ const router = createBrowserRouter([
             <BilDetails></BilDetails>
           </PrivateRoute>
         ),
-        
       },
       {
         path: "/myBills",
@@ -56,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "*",
         Component: NotFound,
+      },
+      {
+        path: "/myprofile",
+        Component: MyProfile,
       },
     ],
   },
