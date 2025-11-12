@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { AuthContext } from "../Provider/AuthContext";
 import dayjs from "dayjs";
-import toast from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
 
 const BilDetails = () => {
   const { id: billId } = useParams();
@@ -71,12 +71,6 @@ const BilDetails = () => {
       datePaid: date,
       additionalInfo: additionalInfo,
       status: "Paid",
-
-      // Include original bill details for tracking
-      // originalTitle: bill.title,
-      // originalCategory: bill.category,
-      // originalLocation: bill.location,
-      // originalBillDate: bill.date,
     };
 
     axiosSecure
@@ -300,6 +294,7 @@ const BilDetails = () => {
           </div>
         </div>
       </dialog>
+      <ToastContainer />
     </div>
   );
 };

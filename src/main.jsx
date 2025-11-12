@@ -12,7 +12,7 @@ import AuthProvider from "./Provider/AuthProvider.jsx";
 import MyPayBills from "./pages/MyPayBills.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import BilDetails from "./components/BilDetails.jsx";
-
+import "react-toastify/dist/ReactToastify.css";
 const router = createBrowserRouter([
   {
     path: "/",

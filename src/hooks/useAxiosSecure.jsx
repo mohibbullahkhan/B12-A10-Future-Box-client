@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://utility-bill-management-server.vercel.app",
 });
 
 const useAxiosSecure = () => {

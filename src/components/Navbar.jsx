@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 
 import { NavLink, Link } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
@@ -7,6 +7,16 @@ import { toast } from "react-toastify";
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
 
   const handleLogOut = () => {
     logOut()
@@ -170,6 +180,12 @@ const Navbar = () => {
                 >
                   Log Out
                 </button>
+                <input
+                  onChange={(e) => handleTheme(e.target.checked)}
+                  type="checkbox"
+                  defaultChecked={localStorage.getItem("theme") === "dark"}
+                  className="toggle"
+                />
                 <div className="relative group cursor-pointer">
                   {user.photoURL ? (
                     <img
