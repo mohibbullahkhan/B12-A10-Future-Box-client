@@ -4,7 +4,6 @@ import { MdSignalWifiStatusbarConnectedNoInternet4 } from "react-icons/md";
 import { TbSunElectricity } from "react-icons/tb";
 import { Link } from "react-router";
 
-// Array defining the utility categories and their styles
 const categories = [
   {
     name: "Electricity",
@@ -50,10 +49,7 @@ const CategorySection = () => {
               className={`block p-8 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.02] ${category.bgColor} `}
             >
               <div className="flex flex-col items-center">
-                <div className="mb-4 ">
-                  {/* Using the provided icons */}
-                  {category.icon}
-                </div>
+                <div className="mb-4 ">{category.icon}</div>
                 <h3 className="text-2xl font-semibold text-gray-800 mb-1">
                   {category.name}
                 </h3>

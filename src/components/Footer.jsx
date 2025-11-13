@@ -8,7 +8,6 @@ const Footer = () => {
     <footer className="bg-[#1a1f33] text-white pt-16 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-700 pb-10">
-          {/* Company Info / Logo Section */}
           <div className="col-span-1 md:col-span-2 space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded-lg">
@@ -62,7 +61,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Useful Links Section */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white mb-2">
               Useful Links
@@ -103,7 +101,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Support Section */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white mb-2">Support</h3>
             <ul className="space-y-2 text-sm">
@@ -143,7 +140,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright Section */}
         <div className="pt-6 text-center">
           <p className="text-sm text-gray-500">
             © 2025 UtilityPay. All rights reserved.
