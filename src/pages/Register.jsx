@@ -74,10 +74,11 @@ const Register = () => {
       <div className="flex flex-col lg:flex-row max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
         <div className="p-8 lg:p-12 lg:w-1/2 bg-primary flex flex-col justify-center items-center text-center">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-            Join Our Cozy Crew!
+            Join Our Stress-Free Crew!
           </h1>
           <p className="text-teal-100 text-lg">
-            Create your account to unlock premium winter pet care services.
+            Create your account to unlock effortless bill management and premium
+            tracking features.
           </p>
         </div>
 

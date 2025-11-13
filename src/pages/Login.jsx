@@ -66,9 +66,7 @@ const Login = () => {
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
             Welcome Back!
           </h1>
-          <p className="text-teal-100 text-lg">
-            Log in to manage your pet's appointments and services.
-          </p>
+          <p className="text-teal-100 text-lg">Ditch the Due Dates Dread.</p>
         </div>
 
         <div className="w-full lg:w-1/2 p-8 sm:p-10">

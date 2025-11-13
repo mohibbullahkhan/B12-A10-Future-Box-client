@@ -1,16 +1,45 @@
-# React + Vite
+# UtilityPay - Seamless Utility Bill Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An efficient and secure full-stack web application designed to help users manage, pay, and track all their utility bills effortlessly.
 
-Currently, two official plugins are available:
+## 🔗 Live Site URL (Client-Side)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[UtilityPay Live Site](https://utilitypaybymuhib.netlify.app/)
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Real-time Bill Tracking:** Users can view, update, and manage the status of all current and past utility bills in a personalized dashboard.
 
-## Expanding the ESLint configuration
+- **Secure Authentication:** Utilizes **Firebase Authentication** for secure and robust user sign-up and login management.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Data Export & Reporting:** Integrated features using `jspdf` and `papaparse` to allow users to generate and download printable PDF reports or CSV data of their bill history.
+
+- **Modern & Responsive UI:** Built with **React** and styled using **Tailwind CSS** and **DaisyUI** components for a visually appealing, fully responsive experience across all devices.
+
+- **Robust Backend Integration:** Features a powerful **Express** and **MongoDB** backend for reliable data storage and API handling, ensuring scalable and secure operation.
+
+- **External Data Handling:** Efficiently handles external data integration (via `axios`) to process and display utility payment information smoothly.
+
+## ⚙️ Technology Stack Highlights
+
+The project leverages a modern MERN-like stack approach for client and server architecture:
+
+**Client (Frontend):**
+
+- React
+
+- Firebase (Authentication)
+
+- Tailwind CSS (with DaisyUI)
+
+- Axios, Day.js, Swiper, SweetAlert2
+
+**Server (Backend):**
+
+- Express.js
+
+- MongoDB
+
+- CORS
+
+- Dotenv
